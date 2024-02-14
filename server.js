@@ -21,3 +21,17 @@ mongodb.initDb((err) => {
     console.log(`Connected to DB and listening on ${port}`);
   }
 });
+
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017/your-database-name', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  // Add other options as needed
+});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
